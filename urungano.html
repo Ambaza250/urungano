@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Inter', system-ui, sans-serif; }
-        .chat-container { height: calc(100vh - 75px); }
+        #botpress-container { height: calc(100vh - 75px); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 overflow-hidden">
@@ -18,7 +18,7 @@
             <div class="w-9 h-9 bg-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl">U</div>
             <h1 class="text-2xl font-bold">Urungano AI</h1>
         </div>
-        <div class="flex gap-4">
+        <div class="flex gap-4 text-sm">
             <button onclick="toggleContrast()" class="px-4 py-2 hover:bg-slate-800 rounded-xl">Contrast</button>
             <button onclick="changeFontSize(2)" class="px-4 py-2 hover:bg-slate-800 rounded-xl">A+</button>
             <button onclick="changeFontSize(-2)" class="px-4 py-2 hover:bg-slate-800 rounded-xl">A-</button>
@@ -26,20 +26,28 @@
         </div>
     </nav>
 
-    <!-- Full Screen Chat Area -->
-    <div class="chat-container flex items-center justify-center bg-slate-950 p-4">
-        <div class="w-full max-w-4xl h-full bg-slate-900 rounded-3xl overflow-hidden border border-slate-700 shadow-2xl">
-            
-            <!-- Botpress Chat will be injected here -->
-            <div id="botpress-webchat" class="h-full"></div>
-        </div>
+    <!-- Botpress Full Chat Area -->
+    <div id="botpress-container" class="w-full max-w-5xl mx-auto px-4 pt-4">
+        <div id="webchat" class="h-full rounded-3xl overflow-hidden border border-slate-700 shadow-2xl"></div>
     </div>
 
     <!-- Botpress Scripts -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
-
+    <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
     <script>
+        // Initialize Botpress Webchat (This makes Botpress the one replying)
+        window.botpressWebChat.init({
+            "botId": "YOUR_BOT_ID_HERE",           // ← Change this
+            "clientId": "YOUR_CLIENT_ID_HERE",     // ← Change this
+            "botName": "Urungano AI",
+            "containerWidth": "100%",
+            "layoutWidth": "100%",
+            "hideWidget": true,
+            "disableAnimations": true,
+            "theme": "dark",
+            "themeName": "prism",
+            "stylesheet": "https://cdn.botpress.cloud/webchat/v1/assets/themes/prism/style.css"
+        });
+
         // Accessibility functions
         function toggleContrast() {
             document.documentElement.classList.toggle('high-contrast');
@@ -49,13 +57,6 @@
             fontSize += delta;
             document.body.style.fontSize = fontSize + 'px';
         }
-
-        // Optional: Customize Botpress appearance after it loads
-        window.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'BP_WEBCHAT_READY') {
-                console.log("Urungano Botpress is ready!");
-            }
-        });
     </script>
 </body>
 </html>
