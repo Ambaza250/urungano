@@ -24,25 +24,72 @@
         #chat-modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.75);
             z-index: 9999;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
         }
         #chat-modal-content {
             background: white;
             width: 100%;
-            max-width: 900px;
-            height: 85vh;
+            max-width: 920px;
+            height: 88vh;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
         }
+
+        /* === BOTPRESS OVERRIDE CSS - Forces it to fill and look clean === */
         #botpress-webchat {
             width: 100% !important;
             height: 100% !important;
+        }
+
+        /* Remove default Botpress widget/bubble completely */
+        #bp-widget, .bpw-floating-button, .bpw-floating-button-container {
+            display: none !important;
+        }
+
+        /* Make Botpress chat fill the container with no extra space */
+        .bpw-chat-container, .bpw-message-container, #bp-web-widget-container {
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* Clean up internal padding and make messages nicer */
+        .bpw-chat-bubble, .bpw-from-bot .bpw-bubble-content {
+            border-radius: 18px !important;
+            padding: 14px 18px !important;
+        }
+
+        .bpw-from-user .bpw-bubble-content {
+            border-radius: 18px 18px 0 18px !important;
+        }
+
+        /* Input area styling */
+        .bpw-input, .bpw-composer {
+            padding: 12px !important;
+            border-top: 1px solid #e5e7eb !important;
+        }
+
+        /* Header inside Botpress (if any) - hide or minimize */
+        .bpw-header {
+            display: none !important; /* We already have our own header */
+        }
+
+        /* Scrollbar improvement */
+        .bpw-chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .bpw-chat-container::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -64,14 +111,14 @@
         <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
     </header>
 
-    <!-- CENTERED TOGGLE BUTTON -->
+    <!-- CENTERED BUTTON -->
     <div class="max-w-3xl mx-auto px-6 text-center mb-12">
         <button onclick="toggleChatModal()" 
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-10 py-5 rounded-3xl shadow-xl transition flex items-center gap-3 mx-auto">
-            <span class="text-2xl">💬</span>
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-12 py-6 rounded-3xl shadow-2xl transition flex items-center gap-4 mx-auto">
+            <span class="text-3xl">💬</span>
             Vugana na Urungano AI
         </button>
-        <p class="text-slate-500 text-sm mt-3">Anonymous • Secure • Real AI</p>
+        <p class="text-slate-500 text-sm mt-4">Anonymous • Secure • Real AI</p>
     </div>
 
     <!-- FOOTER -->
@@ -82,7 +129,7 @@
     <!-- CHAT MODAL -->
     <div id="chat-modal">
         <div id="chat-modal-content">
-            <!-- Modal Header -->
+            <!-- Custom Header -->
             <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
@@ -91,11 +138,11 @@
                         <p class="text-xs text-blue-100">Anonymous & Secure</p>
                     </div>
                 </div>
-                <button onclick="toggleChatModal()" class="text-3xl leading-none hover:text-blue-200">×</button>
+                <button onclick="toggleChatModal()" class="text-4xl leading-none hover:text-blue-200 transition">×</button>
             </div>
             
-            <!-- Botpress Chat -->
-            <div style="height: calc(100% - 73px);">
+            <!-- Botpress Area -->
+            <div style="height: calc(100% - 73px); background: #f8fafc;">
                 <div id="botpress-webchat"></div>
             </div>
         </div>
@@ -106,7 +153,7 @@
     <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
     <script>
-        // Accessibility functions
+        // Accessibility
         function toggleContrast() {
             document.body.classList.toggle('high-contrast');
         }
@@ -122,13 +169,13 @@
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // Initialize Botpress in embedded mode (no default widget)
+        // Initialize Botpress
         window.addEventListener('load', function() {
             window.botpressWebChat.init({
                 botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
                 clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
                 container: "#botpress-webchat",
-                hideWidget: true,           // Hide the default floating bubble
+                hideWidget: true,
                 containerWidth: "100%",
                 layoutWidth: "100%",
                 botName: "Urungano AI",
