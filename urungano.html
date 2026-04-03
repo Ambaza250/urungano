@@ -20,58 +20,32 @@
             color: #fff !important; 
         }
 
-        /* Modal Styles */
+        /* Modal */
         #chat-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85);
             z-index: 99999;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 20px;
         }
         #chat-modal-content {
             background: white;
             width: 100%;
-            max-width: 920px;
-            height: 88vh;
+            max-width: 960px;
+            height: 92vh;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.6);
         }
 
-        /* Strong Botpress CSS Overrides */
-        #botpress-webchat {
-            width: 100% !important;
-            height: 100% !important;
-        }
-        #bp-widget, .bpw-floating-button, .bpw-floating-button-container, .bpw-widget-button {
-            display: none !important;
-        }
-        .bpw-layout, .bpw-chat-container, .bpw-message-container {
-            width: 100% !important;
-            height: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-        }
-        .bpw-header {
-            display: none !important;
-        }
-        .bpw-bubble-content {
-            margin: 8px 12px !important;
-            padding: 14px 18px !important;
-            border-radius: 20px !important;
-        }
-        .bpw-from-user .bpw-bubble-content {
-            border-radius: 20px 20px 0 20px !important;
-        }
-        .bpw-composer, .bpw-input {
-            padding: 12px 16px !important;
-            border-top: 1px solid #e5e7eb !important;
-            background: white !important;
+        /* Iframe container */
+        #iframe-container {
+            width: 100%;
+            height: calc(100% - 73px);
+            background: #f8fafc;
         }
     </style>
 </head>
@@ -87,17 +61,17 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <header class="text-center py-12 px-6">
         <h2 class="text-4xl font-extrabold mb-4">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
         <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
     </header>
 
-    <!-- CENTERED CHAT BUTTON -->
-    <div class="max-w-3xl mx-auto px-6 text-center mb-12">
+    <!-- CENTERED BUTTON -->
+    <div class="max-w-3xl mx-auto px-6 text-center mb-16">
         <button onclick="openChatModal()" 
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-12 py-6 rounded-3xl shadow-2xl transition flex items-center gap-4 mx-auto">
-            <span class="text-3xl">💬</span>
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl px-14 py-7 rounded-3xl shadow-2xl transition-all flex items-center gap-4 mx-auto">
+            <span class="text-4xl">💬</span>
             Vugana na Urungano AI
         </button>
         <p class="text-slate-500 text-sm mt-4">Anonymous • Secure • Real AI</p>
@@ -108,10 +82,10 @@
         <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
     </footer>
 
-    <!-- CHAT MODAL -->
+    <!-- CHAT MODAL with your Udify Iframe -->
     <div id="chat-modal">
         <div id="chat-modal-content">
-            <!-- Custom Modal Header -->
+            <!-- Modal Header -->
             <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
@@ -120,19 +94,20 @@
                         <p class="text-xs text-blue-100">Anonymous & Secure</p>
                     </div>
                 </div>
-                <button onclick="closeChatModal()" class="text-4xl leading-none hover:text-blue-200">×</button>
+                <button onclick="closeChatModal()" class="text-4xl leading-none hover:text-blue-200 transition">×</button>
             </div>
             
-            <!-- Botpress Chat Area -->
-            <div style="height: calc(100% - 73px); background: #f8fafc;">
-                <div id="botpress-webchat"></div>
+            <!-- Iframe Container -->
+            <div id="iframe-container">
+                <iframe
+                    src="https://udify.app/chatbot/4c3chgpwFrrgfL4d"
+                    style="width: 100%; height: 100%; min-height: 700px"
+                    frameborder="0"
+                    allow="microphone">
+                </iframe>
             </div>
         </div>
     </div>
-
-    <!-- Botpress Scripts with YOUR NEW CREDENTIALS -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
     <script>
         // Accessibility Controls
@@ -152,29 +127,6 @@
         function closeChatModal() {
             document.getElementById('chat-modal').style.display = 'none';
         }
-
-        // Initialize Botpress with your NEW credentials
-        window.addEventListener('load', function() {
-            window.botpressWebChat.init({
-                botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
-                clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
-                
-                // Embedded mode settings
-                container: "#botpress-webchat",
-                hideWidget: true,
-                containerWidth: "100%",
-                layoutWidth: "100%",
-                
-                botName: "Urungano AI",
-                showPoweredBy: false,
-                enableTranscriptDownload: true,
-                theme: "prism",
-                style: {
-                    borderRadius: "0px",
-                    boxShadow: "none"
-                }
-            });
-        });
     </script>
 </body>
 </html>
