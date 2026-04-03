@@ -8,7 +8,9 @@
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
-            transition: all 0.3s ease; 
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
         }
         .high-contrast { 
             background-color: #000 !important; 
@@ -20,95 +22,90 @@
             color: #fff !important; 
         }
 
-        /* Modal */
-        #chat-modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.85);
-            z-index: 99999;
-            align-items: center;
-            justify-content: center;
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
             padding: 20px;
         }
-        #chat-modal-content {
+
+        .chat-card {
             background: white;
-            width: 100%;
-            max-width: 960px;
-            height: 92vh;
-            border-radius: 20px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            box-shadow: 0 30px 60px -15px rgb(0 0 0 / 0.6);
+            height: 82vh;
+            min-height: 650px;
         }
 
-        /* Iframe container */
-        #iframe-container {
+        .chat-header {
+            background: #2563eb;
+            color: white;
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .iframe-wrapper {
+            height: calc(100% - 77px);
             width: 100%;
-            height: calc(100% - 73px);
-            background: #f8fafc;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body>
 
-    <!-- NAVIGATION & ACCESSIBILITY BAR -->
+    <!-- Top Navigation + Accessibility -->
     <nav class="bg-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-blue-600">Urungano AI</h1>
         <div class="flex gap-3">
-            <button onclick="toggleContrast()" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">Contrast</button>
-            <button onclick="changeFontSize(2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A+</button>
-            <button onclick="changeFontSize(-2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A-</button>
+            <button onclick="toggleContrast()" class="bg-slate-100 px-4 py-1.5 rounded-lg text-sm font-medium">Contrast</button>
+            <button onclick="changeFontSize(2)" class="bg-slate-100 px-4 py-1.5 rounded-lg text-sm font-medium">A+</button>
+            <button onclick="changeFontSize(-2)" class="bg-slate-100 px-4 py-1.5 rounded-lg text-sm font-medium">A-</button>
         </div>
     </nav>
 
-    <div id="iframe-container">
+    <div class="main-container">
+        
+        <!-- Hero (kept small since chat is now main) -->
+        <div class="text-center py-8">
+            <h2 class="text-4xl font-extrabold mb-3 text-slate-800">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
+        </div>
+
+        <!-- Main Chat Card -->
+        <div class="chat-card">
+            
+            <!-- Chat Header -->
+            <div class="chat-header">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center text-3xl font-bold">U</div>
+                    <div>
+                        <h3 class="font-bold text-xl">Urungano AI Assistant</h3>
+                        <p class="text-blue-100 text-sm">Anonymous • Secure • Always Here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Iframe - The Main Thing -->
+            <div class="iframe-wrapper">
                 <iframe
-                    src="https://udify.app/chatbot/4c3chgpwFrrgfL4d"
-                    style="width: 100%; height: 100%; min-height: 700px"
+                    src="https://udify.app/chat/4c3chgpwFrrgfL4d"
                     frameborder="0"
                     allow="microphone">
                 </iframe>
             </div>
-
-    <!-- HERO -->
-    <header class="text-center py-12 px-6">
-        <h2 class="text-4xl font-extrabold mb-4">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
-        <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
-    </header>
-
-    <!-- CENTERED BUTTON -->
-    <div class="max-w-3xl mx-auto px-6 text-center mb-16">
-        <button onclick="openChatModal()" 
-                class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl px-14 py-7 rounded-3xl shadow-2xl transition-all flex items-center gap-4 mx-auto">
-            <span class="text-4xl">💬</span>
-            Vugana na Urungano AI
-        </button>
-        <p class="text-slate-500 text-sm mt-4">Anonymous • Secure • Real AI</p>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="text-center text-slate-400 text-xs py-10">
-        <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
-    </footer>
-
-    <!-- CHAT MODAL with your Udify Iframe -->
-    <div id="chat-modal">
-        <div id="chat-modal-content">
-            <!-- Modal Header -->
-            <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
-                    <div>
-                        <h3 class="font-bold">Urungano AI Assistant</h3>
-                        <p class="text-xs text-blue-100">Anonymous & Secure</p>
-                    </div>
-                </div>
-                <button onclick="closeChatModal()" class="text-4xl leading-none hover:text-blue-200 transition">×</button>
-            </div>
-            
-            <!-- Iframe Container -->
-            
         </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-400 text-xs py-8 mt-6">
+            © 2026 Urungano AI | iAccelerator Phase 7 Prototype
+        </footer>
     </div>
 
     <script>
@@ -116,18 +113,11 @@
         function toggleContrast() {
             document.body.classList.toggle('high-contrast');
         }
+
         let currentSize = 16;
         function changeFontSize(delta) {
             currentSize += delta;
             document.body.style.fontSize = currentSize + 'px';
-        }
-
-        // Modal Controls
-        function openChatModal() {
-            document.getElementById('chat-modal').style.display = 'flex';
-        }
-        function closeChatModal() {
-            document.getElementById('chat-modal').style.display = 'none';
         }
     </script>
 </body>
