@@ -6,58 +6,47 @@
     <title>Urungano AI - Inclusive Health Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .chat-container { height: 520px; }
-        /* Make Botpress fill the container nicely */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents double scrollbars */
+        }
+        #main-container {
+            height: calc(100vh - 64px); /* Subtract header height */
+        }
         #botpress-webchat {
             width: 100% !important;
             height: 100% !important;
-            border-radius: 0 !important;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 flex flex-col">
 
-    <!-- NAVIGATION -->
-    <nav class="bg-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-blue-600">Urungano AI</h1>
-        <div class="flex gap-3">
-            <button onclick="toggleContrast()" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">Contrast</button>
-            <button onclick="changeFontSize(2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A+</button>
-            <button onclick="changeFontSize(-2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A-</button>
+    <!-- HEADER -->
+    <header class="bg-blue-600 text-white px-6 py-4 flex items-center justify-between shadow-md">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-2xl font-bold">U</div>
+            <div>
+                <h1 class="text-2xl font-bold">Urungano AI</h1>
+                <p class="text-xs text-blue-100">Anonymous • Secure • Kinyarwanda & English</p>
+            </div>
         </div>
-    </nav>
-
-    <!-- HERO -->
-    <header class="text-center py-12 px-6">
-        <h2 class="text-4xl font-extrabold mb-4">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
-        <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
+        <div class="flex gap-3 text-sm">
+            <button onclick="toggleContrast()" class="bg-white/20 hover:bg-white/30 px-4 py-1 rounded-lg transition">Contrast</button>
+            <button onclick="changeFontSize(2)" class="bg-white/20 hover:bg-white/30 px-4 py-1 rounded-lg transition">A+</button>
+            <button onclick="changeFontSize(-2)" class="bg-white/20 hover:bg-white/30 px-4 py-1 rounded-lg transition">A-</button>
+        </div>
     </header>
 
-    <!-- MAIN CHAT CONTAINER (Botpress will go here) -->
-    <main class="max-w-3xl mx-auto px-6 mb-20">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 chat-container">
-            
-            <!-- Chat Header -->
-            <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
-                    <div>
-                        <h3 class="font-bold">Urungano AI Assistant</h3>
-                        <p class="text-xs text-blue-100 italic">Anonymous & Secure • Powered by Botpress</p>
-                    </div>
-                </div>
-            </div>
+    <!-- BOTPRESS CHAT - FULL MAIN AREA -->
+    <div id="main-container" class="flex-1 bg-white">
+        <div id="botpress-webchat"></div>
+    </div>
 
-            <!-- Botpress Webchat Container -->
-            <div id="botpress-webchat" class="w-full h-full"></div>
-
-        </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="text-center text-slate-400 text-xs py-10">
-        <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
+    <!-- FOOTER (small) -->
+    <footer class="bg-slate-800 text-slate-400 text-xs py-3 text-center">
+        © 2026 Urungano AI • iAccelerator Phase 7 • Your privacy is protected
     </footer>
 
     <!-- Botpress Scripts -->
@@ -65,9 +54,9 @@
     <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
     <script>
-        // Tailwind + Accessibility functions (kept from your original)
+        // Accessibility functions
         function toggleContrast() {
-            document.body.classList.toggle('high-contrast');
+            document.documentElement.classList.toggle('high-contrast');
         }
         let currentSize = 16;
         function changeFontSize(delta) {
@@ -75,24 +64,19 @@
             document.body.style.fontSize = currentSize + 'px';
         }
 
-        // Initialize Botpress Webchat (full container mode)
-        window.addEventListener('load', () => {
+        // Initialize Botpress as full embedded chat (no widget)
+        window.addEventListener('load', function() {
             window.botpressWebChat.init({
                 botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
                 clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
-                hostUrl: "https://cdn.botpress.cloud/webchat/v3.6",
-                messagingUrl: "https://messaging.botpress.cloud",
-                avatarUrl: "", // optional: add your logo URL if you want
-                theme: "prism", // or "galaxy", "default" etc. You can customize later
-                botName: "Urungano AI",
-                hideWidget: true,           // we hide the floating bubble
-                showPoweredBy: false,
-                enableTranscriptDownload: true,
-                disableAnimations: false,
-                // Make it fill the container
                 container: "#botpress-webchat",
+                hideWidget: true,
                 width: "100%",
                 height: "100%",
+                botName: "Urungano AI",
+                showPoweredBy: false,
+                enableTranscriptDownload: true,
+                theme: "prism",           // You can change to "galaxy" or others later
                 style: {
                     borderRadius: "0px",
                     boxShadow: "none"
