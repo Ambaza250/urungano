@@ -6,19 +6,29 @@
     <title>Urungano AI - Inclusive Health Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
-        .high-contrast { background-color: #000 !important; color: #fff !important; }
-        .high-contrast button { border: 2px solid white !important; background-color: #000 !important; color: #fff !important; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            transition: all 0.3s ease; 
+        }
+        .high-contrast { 
+            background-color: #000 !important; 
+            color: #fff !important; 
+        }
+        .high-contrast button { 
+            border: 2px solid white !important; 
+            background-color: #000 !important; 
+            color: #fff !important; 
+        }
         
-        /* Chat container styling to match your original design */
+        /* Chat container - matches your original design */
         .chat-container {
-            height: 520px; /* Same height as your old chat-box */
+            height: 550px;           /* Slightly taller for better UX */
             overflow: hidden;
+            background-color: #f8fafc;
         }
         #botpress-webchat {
             width: 100% !important;
             height: 100% !important;
-            border-radius: 0 !important;
         }
     </style>
 </head>
@@ -34,28 +44,28 @@
         </div>
     </nav>
 
-    <!-- HERO / IMPACT SECTION -->
+    <!-- HERO SECTION -->
     <header class="text-center py-12 px-6">
         <h2 class="text-4xl font-extrabold mb-4">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
         <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
     </header>
 
-    <!-- MAIN CHAT INTERFACE (Botpress embedded here) -->
+    <!-- MAIN CHAT INTERFACE (Real Botpress AI here) -->
     <main class="max-w-3xl mx-auto px-6 mb-20">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
             
-            <!-- Chat Header (same as your original) -->
+            <!-- Chat Header (exactly like your original) -->
             <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
                     <div>
                         <h3 class="font-bold">Urungano AI Assistant</h3>
-                        <p class="text-xs text-blue-100 italic">Anonymous & Secure • Powered by Botpress</p>
+                        <p class="text-xs text-blue-100 italic">Anonymous & Secure • Real AI Powered by Botpress</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Botpress Chat Area -->
+            <!-- Real AI Chat Area -->
             <div class="chat-container">
                 <div id="botpress-webchat"></div>
             </div>
@@ -67,12 +77,12 @@
         <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
     </footer>
 
-    <!-- Botpress Scripts -->
+    <!-- Botpress Scripts (your exact embed code) -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
     <script>
-        // Accessibility Controls
+        // Accessibility Controls (kept from your original)
         function toggleContrast() {
             document.body.classList.toggle('high-contrast');
         }
@@ -82,21 +92,22 @@
             document.body.style.fontSize = currentSize + 'px';
         }
 
-        // Initialize Botpress as embedded chat (fills the container)
+        // Initialize Real Botpress AI (embedded, no widget)
         window.addEventListener('load', function() {
             window.botpressWebChat.init({
                 botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
                 clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
                 
-                container: "#botpress-webchat",   // This makes it appear inside the div
-                hideWidget: true,                 // Removes the floating bubble
+                // Makes it appear inside the div instead of floating
+                container: "#botpress-webchat",
+                hideWidget: true,
                 containerWidth: "100%",
                 layoutWidth: "100%",
-                
+
                 botName: "Urungano AI",
                 showPoweredBy: false,
                 enableTranscriptDownload: true,
-                theme: "prism",                   // Clean modern look
+                theme: "prism",           // Clean look - you can change to "galaxy" later
                 style: {
                     borderRadius: "0px",
                     boxShadow: "none"
