@@ -6,27 +6,17 @@
     <title>Urungano AI - Inclusive Health Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            transition: all 0.3s ease; 
-        }
-        .high-contrast { 
-            background-color: #000 !important; 
-            color: #fff !important; 
-        }
-        .high-contrast button { 
-            border: 2px solid white !important; 
-            background-color: #000 !important; 
-            color: #fff !important; 
-        }
+        body { font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+        .high-contrast { background-color: #000 !important; color: #fff !important; }
+        .high-contrast button { border: 2px solid white !important; background-color: #000 !important; color: #fff !important; }
 
-        /* Modal styles */
+        /* Modal */
         #chat-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.75);
-            z-index: 9999;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 99999;
             align-items: center;
             justify-content: center;
             padding: 16px;
@@ -41,61 +31,80 @@
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
         }
 
-        /* === BOTPRESS OVERRIDE CSS - Forces it to fill and look clean === */
+        /* ============== BOTPRESS V3.6 STRONG OVERRIDES ============== */
         #botpress-webchat {
             width: 100% !important;
             height: 100% !important;
         }
 
-        /* Remove default Botpress widget/bubble completely */
-        #bp-widget, .bpw-floating-button, .bpw-floating-button-container {
+        /* Hide default widget completely */
+        #bp-widget, .bpw-floating-button, .bpw-floating-button-container, .bpw-widget-button {
             display: none !important;
         }
 
-        /* Make Botpress chat fill the container with no extra space */
-        .bpw-chat-container, .bpw-message-container, #bp-web-widget-container {
+        /* Force full fill */
+        .bpw-layout, .bpw-chat-container, .bpw-message-container, 
+        .bpw-webchat-container, #bp-web-widget-container {
             width: 100% !important;
             height: 100% !important;
             margin: 0 !important;
             padding: 0 !important;
             border-radius: 0 !important;
             box-shadow: none !important;
+            overflow: hidden !important;
         }
 
-        /* Clean up internal padding and make messages nicer */
-        .bpw-chat-bubble, .bpw-from-bot .bpw-bubble-content {
-            border-radius: 18px !important;
+        /* Remove internal padding and borders */
+        .bpw-chat-bubble, .bpw-bubble-content, 
+        .bpw-from-bot .bpw-bubble-content, .bpw-from-user .bpw-bubble-content {
+            margin: 8px 12px !important;
             padding: 14px 18px !important;
+            border-radius: 20px !important;
         }
 
         .bpw-from-user .bpw-bubble-content {
-            border-radius: 18px 18px 0 18px !important;
+            border-radius: 20px 20px 0 20px !important;
         }
 
-        /* Input area styling */
-        .bpw-input, .bpw-composer {
-            padding: 12px !important;
+        /* Header (we use our own) */
+        .bpw-header, .bpw-header-container {
+            display: none !important;
+        }
+
+        /* Composer / Input area */
+        .bpw-composer, .bpw-input-wrapper, .bpw-input {
+            padding: 12px 16px !important;
             border-top: 1px solid #e5e7eb !important;
+            background: white !important;
         }
 
-        /* Header inside Botpress (if any) - hide or minimize */
-        .bpw-header {
-            display: none !important; /* We already have our own header */
+        /* Messages area */
+        .bpw-message-list, .bpw-messages {
+            padding: 0 !important;
+            background: #f8fafc !important;
         }
 
-        /* Scrollbar improvement */
+        /* Scrollbar */
         .bpw-chat-container::-webkit-scrollbar {
-            width: 6px;
+            width: 6px !important;
         }
         .bpw-chat-container::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 3px;
+            background: #94a3b8 !important;
+            border-radius: 3px !important;
+        }
+
+        /* Extra safety overrides */
+        .bpw-layout * {
+            max-width: 100% !important;
+        }
+        [class*="bpw-"] {
+            box-sizing: border-box !important;
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- NAVIGATION & ACCESSIBILITY BAR -->
+    <!-- NAV & ACCESSIBILITY -->
     <nav class="bg-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-blue-600">Urungano AI</h1>
         <div class="flex gap-3">
@@ -113,7 +122,7 @@
 
     <!-- CENTERED BUTTON -->
     <div class="max-w-3xl mx-auto px-6 text-center mb-12">
-        <button onclick="toggleChatModal()" 
+        <button onclick="openChatModal()" 
                 class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-12 py-6 rounded-3xl shadow-2xl transition flex items-center gap-4 mx-auto">
             <span class="text-3xl">💬</span>
             Vugana na Urungano AI
@@ -126,10 +135,10 @@
         <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
     </footer>
 
-    <!-- CHAT MODAL -->
+    <!-- MODAL -->
     <div id="chat-modal">
         <div id="chat-modal-content">
-            <!-- Custom Header -->
+            <!-- Your custom header -->
             <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
@@ -138,10 +147,10 @@
                         <p class="text-xs text-blue-100">Anonymous & Secure</p>
                     </div>
                 </div>
-                <button onclick="toggleChatModal()" class="text-4xl leading-none hover:text-blue-200 transition">×</button>
+                <button onclick="closeChatModal()" class="text-4xl leading-none hover:text-blue-200">×</button>
             </div>
             
-            <!-- Botpress Area -->
+            <!-- Botpress container -->
             <div style="height: calc(100% - 73px); background: #f8fafc;">
                 <div id="botpress-webchat"></div>
             </div>
@@ -154,23 +163,23 @@
 
     <script>
         // Accessibility
-        function toggleContrast() {
-            document.body.classList.toggle('high-contrast');
-        }
+        function toggleContrast() { document.body.classList.toggle('high-contrast'); }
         let currentSize = 16;
         function changeFontSize(delta) {
             currentSize += delta;
             document.body.style.fontSize = currentSize + 'px';
         }
 
-        // Toggle Modal
-        function toggleChatModal() {
-            const modal = document.getElementById('chat-modal');
-            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        // Modal controls
+        function openChatModal() {
+            document.getElementById('chat-modal').style.display = 'flex';
+        }
+        function closeChatModal() {
+            document.getElementById('chat-modal').style.display = 'none';
         }
 
-        // Initialize Botpress
-        window.addEventListener('load', function() {
+        // Initialize Botpress ONLY when modal opens (better timing)
+        function initBotpress() {
             window.botpressWebChat.init({
                 botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
                 clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
@@ -182,12 +191,16 @@
                 showPoweredBy: false,
                 enableTranscriptDownload: true,
                 theme: "prism",
-                style: {
-                    borderRadius: "0px",
-                    boxShadow: "none"
-                }
+                style: { borderRadius: "0px", boxShadow: "none" }
             });
-        });
+        }
+
+        // Open modal → init Botpress
+        window.openChatModal = function() {
+            openChatModal();
+            // Small delay to let DOM settle
+            setTimeout(initBotpress, 300);
+        };
     </script>
 </body>
 </html>
