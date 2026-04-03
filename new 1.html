@@ -5,16 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urungano AI - Inclusive Health Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Botpress Embed Scripts -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .chat-box { height: 520px; overflow-y: auto; scroll-behavior: smooth; }
-        .ai-msg { border-radius: 20px 20px 20px 0; }
-        .user-msg { border-radius: 20px 20px 0 20px; }
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #botpress-frame {
+            height: calc(100vh - 128px); /* Header + Footer space */
+            width: 100%;
+            border: none;
+        }
+        .bp-widget-side {
+            position: relative !important;
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            max-height: none !important;
+        }
+        /* Hide default floating button */
+        .bp-widget-button {
+            display: none !important;
+        }
     </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-slate-50 flex flex-col">
 
-<!-- ==================== ZAMUKA HEADER (Kept as is) ==================== -->
+<!-- ==================== ZAMUKA HEADER ==================== -->
 <header class="bg-white shadow-md sticky top-0 z-50 px-6 py-4">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
         <div class="text-2xl font-bold text-blue-600">ZAMUKA</div>
@@ -28,125 +52,36 @@
     </div>
 </header>
 
-<!-- ==================== URUNGANO AI - HEALTH SUPPORT ==================== -->
-<div class="max-w-4xl mx-auto px-6 py-12">
-    <div class="text-center mb-10">
-        <h1 class="text-5xl font-bold text-slate-900 mb-4">Urungano AI</h1>
-        <p class="text-2xl text-slate-600">Your safe, anonymous & inclusive health companion</p>
-        <p class="text-emerald-600 mt-3 font-medium">Sexual & Reproductive Health • Mental Health • Well-being</p>
-    </div>
-
-    <!-- Chat Interface -->
-    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-        
-        <!-- Chat Header -->
-        <div class="bg-blue-600 p-6 text-white flex items-center gap-4">
-            <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-4xl">🛡️</div>
-            <div>
-                <h3 class="font-bold text-xl">Urungano AI Assistant</h3>
-                <p class="text-blue-100 text-sm">Safe • Anonymous • Always Available in Kinyarwanda & English</p>
-            </div>
-        </div>
-
-        <!-- Chat Messages -->
-        <div id="chatDisplay" class="chat-box p-6 bg-slate-50 space-y-5">
-            <!-- Welcome Message -->
-            <div class="flex flex-col items-start">
-                <div class="ai-msg bg-white p-6 shadow-sm border max-w-[85%]">
-                    Muraho! 👋<br><br>
-                    Ndi <strong>Urungano AI</strong>, umufasha wawe wizeza ubuzima bw'ubworoherane n'ubwenge. 
-                    Nshobora kugufasha ku bijyanye n'ubuzima bw'imyorero, ubuzima bwo mu mutwe, cyangwa ibindi bibazo by'ubuzima.<br><br>
-                    Ibaze icyo ushaka kumenya — byose birihariye kandi birihariye.
-                </div>
-            </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="p-6 bg-white border-t">
-            <div class="flex gap-3">
-                <input type="text" id="userInput" 
-                       placeholder="Andika ibibazo byawe hano... (e.g. Ibindi bijyanye n'ubuzima bwo mu mutwe)" 
-                       class="flex-1 p-5 bg-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none">
-
-                <button onclick="startSTT()" class="bg-slate-100 px-6 rounded-2xl hover:bg-blue-100 transition text-2xl">
-                    🎤
-                </button>
-
-                <button onclick="handleSend()" 
-                        class="bg-blue-600 text-white px-10 rounded-2xl font-semibold hover:bg-blue-700 transition">
-                    Send
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <p class="text-center text-xs text-slate-500 mt-6">
-        All conversations are private and anonymous. Urungano AI is not a replacement for professional medical advice.
-    </p>
+<!-- ==================== FULL SCREEN URUNGANO AI ==================== -->
+<div class="flex-1 w-full" id="botpress-frame">
+    <!-- Botpress Webchat will be injected here as full screen -->
+	<div id="bp-embedded-webchat"></div>
+	
+    
+    
 </div>
 
-<!-- ==================== ZAMUKA FOOTER (Kept as is) ==================== -->
-<footer class="bg-white border-t mt-12 py-10">
-    <div class="max-w-6xl mx-auto px-6 text-center text-slate-500 text-sm">
+<!-- ==================== ZAMUKA FOOTER ==================== -->
+<footer class="bg-white border-t py-6 text-center text-slate-500 text-sm">
+    <div class="max-w-6xl mx-auto px-6">
         <p>© 2026 Zamuka Youth Platform | Urungano AI - Inclusive Health Support for Rwandan Youth</p>
+        <p class="text-xs mt-2">All conversations are private and anonymous • Not a substitute for professional medical advice</p>
     </div>
 </footer>
 
 <script>
-// Chat Logic for Health Support
-function handleSend() {
-    const input = document.getElementById('userInput');
-    const display = document.getElementById('chatDisplay');
-    if (!input.value.trim()) return;
-
-    // User message
-    display.innerHTML += `
-        <div class="flex justify-end">
-            <div class="user-msg bg-blue-600 text-white p-5 max-w-[80%]">${input.value}</div>
-        </div>`;
-
-    const q = input.value.toLowerCase();
-    let reply = "Murakoze! Mumbwira neza ibindi byinshi kugira ngo nkugire inama nziza kurushaho.";
-
-    if (q.includes("mental") || q.includes("mutwe") || q.includes("stress") || q.includes("depression")) {
-        reply = "Ubuzima bwo mu mutwe ni ingenzi cyane. Niba ukeneye kuganira, nshobora kugufasha kumenya uburyo bwo kwiyumvisha neza cyangwa n'aho ushobora kubona ubufasha bwimbitse.";
-    } else if (q.includes("srh") || q.includes("sex") || q.includes("kubw") || q.includes("ubworoherane")) {
-        reply = "Urungano AI irashyigikira ubuzima bw'imyorero n'ubworoherane. Ibaze ibibazo byawe byose — nta gahato, nta gucira urubanza.";
-    } else if (q.includes("pregnant") || q.includes("inda") || q.includes("contraceptive")) {
-        reply = "Nshobora kugusobanurira ibijyanye n'uburyo bwo kurinda inda cyangwa ubuzima bw'umubyeyi.";
-    }
-
+// Force Botpress to open in full screen mode after loading
+window.addEventListener('load', function() {
     setTimeout(() => {
-        display.innerHTML += `
-            <div class="flex flex-col items-start">
-                <div class="ai-msg bg-white p-6 shadow-sm border max-w-[85%]">${reply}</div>
-            </div>`;
-        display.scrollTop = display.scrollHeight;
+        if (window.botpressWebChat) {
+            window.botpressWebChat.open();
+        }
     }, 800);
-
-    input.value = "";
-}
-
-// Speech to Text
-function startSTT() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'rw-RW';
-        recognition.start();
-        recognition.onresult = (event) => {
-            document.getElementById('userInput').value = event.results[0][0].transcript;
-        };
-    } else {
-        alert("Speech recognition not supported in this browser.");
-    }
-}
-
-// Enter key support
-document.getElementById('userInput').addEventListener("keypress", (e) => {
-    if (e.key === "Enter") handleSend();
 });
 </script>
+
+<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
 </body>
 </html>
