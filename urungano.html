@@ -7,21 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Inter', system-ui, sans-serif; }
-        .chat-container { height: calc(100vh - 80px); }
-        .chat-box { height: calc(100vh - 220px); }
-        .ai-msg { border-radius: 20px 20px 20px 5px; }
-        .user-msg { border-radius: 20px 20px 5px 20px; }
+        .chat-container { height: calc(100vh - 75px); }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100">
+<body class="bg-slate-950 text-slate-100 overflow-hidden">
 
-    <!-- Top Bar -->
+    <!-- Top Navigation -->
     <nav class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center gap-3">
             <div class="w-9 h-9 bg-blue-600 rounded-2xl flex items-center justify-center font-bold text-xl">U</div>
-            <h1 class="text-2xl font-bold text-white">Urungano AI</h1>
+            <h1 class="text-2xl font-bold">Urungano AI</h1>
         </div>
-        <div class="flex items-center gap-4 text-sm">
+        <div class="flex gap-4">
             <button onclick="toggleContrast()" class="px-4 py-2 hover:bg-slate-800 rounded-xl">Contrast</button>
             <button onclick="changeFontSize(2)" class="px-4 py-2 hover:bg-slate-800 rounded-xl">A+</button>
             <button onclick="changeFontSize(-2)" class="px-4 py-2 hover:bg-slate-800 rounded-xl">A-</button>
@@ -29,57 +26,21 @@
         </div>
     </nav>
 
-    <!-- Main Chat Area - Full Screen -->
-    <div class="chat-container max-w-5xl mx-auto flex flex-col px-4">
-        
-        <!-- Chat Header -->
-        <div class="text-center py-6">
-            <h2 class="text-3xl font-bold mb-2">Muraho, ndi hano kugufasha</h2>
-            <p class="text-slate-400">Anonymous • Secure • Kinyarwanda & English</p>
-        </div>
-
-        <!-- Chat Messages -->
-        <div id="chatDisplay" class="chat-box bg-slate-900 rounded-3xl p-6 overflow-y-auto border border-slate-700 flex-1 space-y-6 shadow-2xl">
-            <!-- Initial Greeting -->
-            <div class="flex flex-col items-start">
-                <div class="ai-msg bg-slate-800 p-5 max-w-[80%] text-slate-100">
-                    Muraho! Ndi <strong>Urungano AI</strong>.<br>
-                    Nshobora kugufasha ku bibazo by'ubuzima bwo mu mutwe cyangwa ubuzima bw'imyororokere.<br><br>
-                    Ufite ikibazo ushaka kubaza?
-                </div>
-                <button onclick="readAloud(this)" class="text-blue-400 text-sm mt-2 flex items-center gap-1 hover:text-blue-300">
-                    🔊 Yumva
-                </button>
-            </div>
-        </div>
-
-        <!-- Input Area -->
-        <div class="py-6">
-            <div class="flex gap-3 bg-slate-900 p-3 rounded-3xl border border-slate-700">
-                <input type="text" id="userInput" 
-                       placeholder="Andika ikibazo cyangwa uvuge..." 
-                       class="flex-1 bg-slate-800 text-white placeholder-slate-400 p-5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-600">
-
-                <button onclick="startSTT()" id="micBtn"
-                        class="bg-slate-800 hover:bg-slate-700 w-14 h-14 rounded-2xl text-2xl transition">
-                    🎤
-                </button>
-
-                <button onclick="handleSend()" 
-                        class="bg-blue-600 hover:bg-blue-700 w-14 h-14 rounded-2xl font-bold transition">
-                    ↑
-                </button>
-            </div>
-
-            <div class="flex justify-between text-xs text-slate-500 mt-4 px-4">
-                <p>Emergency? <span class="text-red-400 font-medium">Call 3530</span></p>
-                <button onclick="alert('Easy Read mode activated')" class="underline hover:text-slate-300">Easy Read Mode</button>
-            </div>
+    <!-- Full Screen Chat Area -->
+    <div class="chat-container flex items-center justify-center bg-slate-950 p-4">
+        <div class="w-full max-w-4xl h-full bg-slate-900 rounded-3xl overflow-hidden border border-slate-700 shadow-2xl">
+            
+            <!-- Botpress Chat will be injected here -->
+            <div id="botpress-webchat" class="h-full"></div>
         </div>
     </div>
 
+    <!-- Botpress Scripts -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
+
     <script>
-        // Accessibility
+        // Accessibility functions
         function toggleContrast() {
             document.documentElement.classList.toggle('high-contrast');
         }
@@ -89,73 +50,11 @@
             document.body.style.fontSize = fontSize + 'px';
         }
 
-        // Text to Speech
-        function readAloud(btn) {
-            const text = btn.parentElement.querySelector('div').innerText;
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'rw-RW';
-                speechSynthesis.speak(utterance);
+        // Optional: Customize Botpress appearance after it loads
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'BP_WEBCHAT_READY') {
+                console.log("Urungano Botpress is ready!");
             }
-        }
-
-        // Speech to Text
-        function startSTT() {
-            const mic = document.getElementById('micBtn');
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'rw-RW';
-            
-            mic.classList.add('bg-red-500', 'animate-pulse');
-            recognition.start();
-
-            recognition.onresult = (event) => {
-                document.getElementById('userInput').value = event.results[0][0].transcript;
-                mic.classList.remove('bg-red-500', 'animate-pulse');
-            };
-            recognition.onerror = () => mic.classList.remove('bg-red-500', 'animate-pulse');
-        }
-
-        // Send Message
-        function handleSend() {
-            const input = document.getElementById('userInput');
-            const display = document.getElementById('chatDisplay');
-            if (!input.value.trim()) return;
-
-            // User message
-            display.innerHTML += `
-                <div class="flex justify-end">
-                    <div class="user-msg bg-blue-600 p-5 max-w-[80%] text-white">
-                        ${input.value}
-                    </div>
-                </div>`;
-
-            const question = input.value.toLowerCase();
-            let reply = "Mumbabarire, ntabwo nshyuye neza ikibazo. Ongera ubaze neza.";
-
-            if (question.includes("imihango") || question.includes("menstruation") || question.includes("period")) {
-                reply = "Imihango ni ibisanzwe. Niba ubona ibimenyetso bidasanzwe nka uburibwe bukabije, ni byiza kugana kwa muganga vuba.";
-            } else if (question.includes("agahinda") || question.includes("depression") || question.includes("stress") || question.includes("umutwe")) {
-                reply = "Uragushimira ko waganiriye. Agahinda gakabije gashobora gufashwa. Kanda hano cyangwa uhamagara 3530.";
-            }
-
-            // AI Reply
-            setTimeout(() => {
-                display.innerHTML += `
-                    <div class="flex flex-col items-start">
-                        <div class="ai-msg bg-slate-800 p-5 max-w-[80%]">
-                            ${reply}
-                        </div>
-                        <button onclick="readAloud(this)" class="text-blue-400 text-sm mt-2 flex items-center gap-1">🔊 Yumva</button>
-                    </div>`;
-                display.scrollTop = display.scrollHeight;
-            }, 700);
-
-            input.value = "";
-        }
-
-        // Allow sending with Enter key
-        document.getElementById('userInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleSend();
         });
     </script>
 </body>
