@@ -20,9 +20,9 @@
             color: #fff !important; 
         }
         
-        /* Chat container - matches your original design */
+        /* Chat container styling - matches your original card */
         .chat-container {
-            height: 550px;           /* Slightly taller for better UX */
+            height: 550px;
             overflow: hidden;
             background-color: #f8fafc;
         }
@@ -50,22 +50,22 @@
         <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
     </header>
 
-    <!-- MAIN CHAT INTERFACE (Real Botpress AI here) -->
+    <!-- MAIN CHAT INTERFACE -->
     <main class="max-w-3xl mx-auto px-6 mb-20">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
             
-            <!-- Chat Header (exactly like your original) -->
+            <!-- Chat Header (exactly as in your original) -->
             <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
                 <div class="flex items-center gap-3">
                     <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
                     <div>
                         <h3 class="font-bold">Urungano AI Assistant</h3>
-                        <p class="text-xs text-blue-100 italic">Anonymous & Secure • Real AI Powered by Botpress</p>
+                        <p class="text-xs text-blue-100 italic">Anonymous & Secure • Real AI by Botpress</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Real AI Chat Area -->
+            <!-- Real AI Chat Area (Botpress fills this) -->
             <div class="chat-container">
                 <div id="botpress-webchat"></div>
             </div>
@@ -77,12 +77,12 @@
         <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
     </footer>
 
-    <!-- Botpress Scripts (your exact embed code) -->
+    <!-- Botpress Scripts (your provided embed code) -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
     <script>
-        // Accessibility Controls (kept from your original)
+        // Accessibility Controls (kept from your original file)
         function toggleContrast() {
             document.body.classList.toggle('high-contrast');
         }
@@ -92,13 +92,13 @@
             document.body.style.fontSize = currentSize + 'px';
         }
 
-        // Initialize Real Botpress AI (embedded, no widget)
+        // Initialize Real Botpress AI inside your design
         window.addEventListener('load', function() {
             window.botpressWebChat.init({
                 botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
                 clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
                 
-                // Makes it appear inside the div instead of floating
+                // Core options for embedded mode (no widget)
                 container: "#botpress-webchat",
                 hideWidget: true,
                 containerWidth: "100%",
@@ -107,7 +107,7 @@
                 botName: "Urungano AI",
                 showPoweredBy: false,
                 enableTranscriptDownload: true,
-                theme: "prism",           // Clean look - you can change to "galaxy" later
+                theme: "prism",
                 style: {
                     borderRadius: "0px",
                     boxShadow: "none"
