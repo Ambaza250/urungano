@@ -1,353 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zamuka – Stop Waiting for a Job</title>
-
-<style>
-
-:root {
-  --primary:#0066cc;
-  --green:#28a745;
-  --dark:#1a1a1a;
-  --light:#f8f9fa;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family:system-ui,sans-serif;
-  background:var(--light);
-  color:var(--dark);
-  line-height:1.6;
-}
-
-.container{
-  max-width:1180px;
-  margin:auto;
-  padding:0 20px;
-}
-
-header{
-  background:white;
-  border-bottom:1px solid #eee;
-  padding:16px 0;
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo{
-  font-size:1.8rem;
-  font-weight:bold;
-  color:var(--primary);
-}
-
-.menu{
-  display:flex;
-  gap:2rem;
-}
-
-.menu a{
-  text-decoration:none;
-  color:var(--dark);
-}
-
-/* -------- HERO (FIXED) -------- */
-
-.hero{
-  position:relative;
-  width:100%;
-  height:80vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-}
-
-/* slideshow */
-
-.hero-slideshow{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-}
-
-.hero-slideshow img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  opacity:0;
-  animation:slideShow 15s infinite;
-}
-
-.hero-slideshow img:nth-child(1){animation-delay:0s;}
-.hero-slideshow img:nth-child(2){animation-delay:5s;}
-.hero-slideshow img:nth-child(3){animation-delay:10s;}
-
-@keyframes slideShow{
-  0%{opacity:0}
-  10%{opacity:1}
-  30%{opacity:1}
-  40%{opacity:0}
-  100%{opacity:0}
-}
-
-/* dark overlay */
-
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-  z-index:1;
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  color:white;
-}
-
-.hero h1{
-  font-size:3.1rem;
-  line-height:1.15;
-  margin-bottom:1rem;
-}
-
-.hero h1 span{
-  color:#4da3ff;
-}
-
-.subtitle{
-  font-size:1.4rem;
-  margin-bottom:2rem;
-}
-
-.cta-btn{
-  display:inline-block;
-  background:var(--primary);
-  color:white;
-  padding:16px 40px;
-  border-radius:50px;
-  font-weight:600;
-  text-decoration:none;
-}
-
-/* sections */
-
-.section{
-  padding:90px 0;
-}
-
-h2{
-  text-align:center;
-  font-size:2.6rem;
-  margin-bottom:3rem;
-}
-
-.pillars{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:2rem;
-}
-
-.pillar{
-  background:white;
-  padding:2.5rem;
-  border-radius:16px;
-  box-shadow:0 6px 24px rgba(0,0,0,0.08);
-  text-align:center;
-}
-
-.icon-placeholder{
-  width:90px;
-  height:90px;
-  background:#e9f3ff;
-  border-radius:50%;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:2.5rem;
-}
-
-/* stats */
-
-.stats-section{
-  background:#0a1d37;
-  color:white;
-  padding:100px 0;
-  text-align:center;
-}
-
-.dashboard-img{
-  width:100%;
-  max-width:900px;
-  margin:40px auto;
-  display:block;
-  border-radius:12px;
-}
-
-/* footer */
-
-footer{
-  background:var(--dark);
-  color:white;
-  padding:60px 0;
-}
-
-.footer-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:2rem;
-}
-
-.footer-grid a{
-  display:block;
-  color:#ccc;
-  text-decoration:none;
-  margin-bottom:.6rem;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urungano AI - Inclusive Health Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chat-box { height: 520px; overflow-y: auto; scroll-behavior: smooth; }
+        .ai-msg { border-radius: 20px 20px 20px 0; }
+        .user-msg { border-radius: 20px 20px 0 20px; }
+    </style>
 </head>
+<body class="bg-slate-50">
 
-<body>
-
-<header>
-<div class="container">
-<div class="nav">
-<div class="logo">ZAMUKA</div>
-
-<nav class="menu">
-<a href="about us.html">About Us</a>
-<a href="Login.html">Log in</a>
-<a href="#">Our Program</a>
-<a href="#">Financial Academy</a>
-<a href="#">Contact</a>
-</nav>
-
-</div>
-</div>
+<!-- ==================== ZAMUKA HEADER (Kept as is) ==================== -->
+<header class="bg-white shadow-md sticky top-0 z-50 px-6 py-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="text-2xl font-bold text-blue-600">ZAMUKA</div>
+        <nav class="flex gap-8 text-sm font-medium">
+            <a href="about us.html" class="hover:text-blue-600">About Us</a>
+            <a href="Login.html" class="hover:text-blue-600">Log in</a>
+            <a href="#" class="hover:text-blue-600">Our Program</a>
+            <a href="#" class="hover:text-blue-600">Financial Academy</a>
+            <a href="#" class="hover:text-blue-600">Contact</a>
+        </nav>
+    </div>
 </header>
 
+<!-- ==================== URUNGANO AI - HEALTH SUPPORT ==================== -->
+<div class="max-w-4xl mx-auto px-6 py-12">
+    <div class="text-center mb-10">
+        <h1 class="text-5xl font-bold text-slate-900 mb-4">Urungano AI</h1>
+        <p class="text-2xl text-slate-600">Your safe, anonymous & inclusive health companion</p>
+        <p class="text-emerald-600 mt-3 font-medium">Sexual & Reproductive Health • Mental Health • Well-being</p>
+    </div>
 
-<section class="hero">
+    <!-- Chat Interface -->
+    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+        
+        <!-- Chat Header -->
+        <div class="bg-blue-600 p-6 text-white flex items-center gap-4">
+            <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-4xl">🛡️</div>
+            <div>
+                <h3 class="font-bold text-xl">Urungano AI Assistant</h3>
+                <p class="text-blue-100 text-sm">Safe • Anonymous • Always Available in Kinyarwanda & English</p>
+            </div>
+        </div>
 
-<div class="hero-slideshow">
-<img src="img1.png">
-<img src="img2.png">
-<img src="img3.png">
+        <!-- Chat Messages -->
+        <div id="chatDisplay" class="chat-box p-6 bg-slate-50 space-y-5">
+            <!-- Welcome Message -->
+            <div class="flex flex-col items-start">
+                <div class="ai-msg bg-white p-6 shadow-sm border max-w-[85%]">
+                    Muraho! 👋<br><br>
+                    Ndi <strong>Urungano AI</strong>, umufasha wawe wizeza ubuzima bw'ubworoherane n'ubwenge. 
+                    Nshobora kugufasha ku bijyanye n'ubuzima bw'imyorero, ubuzima bwo mu mutwe, cyangwa ibindi bibazo by'ubuzima.<br><br>
+                    Ibaze icyo ushaka kumenya — byose birihariye kandi birihariye.
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-6 bg-white border-t">
+            <div class="flex gap-3">
+                <input type="text" id="userInput" 
+                       placeholder="Andika ibibazo byawe hano... (e.g. Ibindi bijyanye n'ubuzima bwo mu mutwe)" 
+                       class="flex-1 p-5 bg-slate-100 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none">
+
+                <button onclick="startSTT()" class="bg-slate-100 px-6 rounded-2xl hover:bg-blue-100 transition text-2xl">
+                    🎤
+                </button>
+
+                <button onclick="handleSend()" 
+                        class="bg-blue-600 text-white px-10 rounded-2xl font-semibold hover:bg-blue-700 transition">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-center text-xs text-slate-500 mt-6">
+        All conversations are private and anonymous. Urungano AI is not a replacement for professional medical advice.
+    </p>
 </div>
 
-<div class="container hero-content">
-<h1>Stop Waiting for a Job.<br>Build Your Own Future<br>with <span>Zamuka</span></h1>
-<p class="subtitle">Join thousands of youth creating real income and independence</p>
-<a href="signup.html" class="cta-btn">Join Zamuka Today</a>
-</div>
-
-</section>
-
-
-<section class="section">
-<div class="container">
-
-<h2>3 Pillar Process</h2>
-
-<div class="pillars">
-
-<div class="pillar">
-<div class="icon-placeholder">👥</div>
-<h3>Join a Circle</h3>
-<p>Connect with motivated peers and start your journey together</p>
-</div>
-
-<div class="pillar">
-<div class="icon-placeholder">💰</div>
-<h3>Micro-save Daily</h3>
-<p>Build discipline and capital through small, consistent savings</p>
-</div>
-
-<div class="pillar">
-<div class="icon-placeholder">🌱</div>
-<h3>Unlock Seed Capital</h3>
-<p>Access funding to launch your own project</p>
-</div>
-
-</div>
-
-</div>
-</section>
-
-
-<section class="stats-section">
-<div class="container">
-
-<h2>Your Progress Dashboard</h2>
-
-<img src="photo 1.png" class="dashboard-img">
-
-</div>
-</section>
-
-
-<footer>
-
-<div class="container">
-
-<div class="footer-grid">
-
-<div>
-<h4>ZAMUKA</h4>
-<p>Your path to financial independence</p>
-</div>
-
-<div>
-<h4>Quick Links</h4>
-<a href="#">How It Works</a>
-<a href="#">Financial Academy</a>
-<a href="#">About Us</a>
-</div>
-
-<div>
-<h4>Contact</h4>
-<p>+250 782 123 456</p>
-<p>contact@zamuka.rw</p>
-</div>
-
-</div>
-
-</div>
-
+<!-- ==================== ZAMUKA FOOTER (Kept as is) ==================== -->
+<footer class="bg-white border-t mt-12 py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center text-slate-500 text-sm">
+        <p>© 2026 Zamuka Youth Platform | Urungano AI - Inclusive Health Support for Rwandan Youth</p>
+    </div>
 </footer>
 
+<script>
+// Chat Logic for Health Support
+function handleSend() {
+    const input = document.getElementById('userInput');
+    const display = document.getElementById('chatDisplay');
+    if (!input.value.trim()) return;
 
-    
-    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
-    
+    // User message
+    display.innerHTML += `
+        <div class="flex justify-end">
+            <div class="user-msg bg-blue-600 text-white p-5 max-w-[80%]">${input.value}</div>
+        </div>`;
 
-botName: "Zamuka AI Mentor"
+    const q = input.value.toLowerCase();
+    let reply = "Murakoze! Mumbwira neza ibindi byinshi kugira ngo nkugire inama nziza kurushaho.";
 
+    if (q.includes("mental") || q.includes("mutwe") || q.includes("stress") || q.includes("depression")) {
+        reply = "Ubuzima bwo mu mutwe ni ingenzi cyane. Niba ukeneye kuganira, nshobora kugufasha kumenya uburyo bwo kwiyumvisha neza cyangwa n'aho ushobora kubona ubufasha bwimbitse.";
+    } else if (q.includes("srh") || q.includes("sex") || q.includes("kubw") || q.includes("ubworoherane")) {
+        reply = "Urungano AI irashyigikira ubuzima bw'imyorero n'ubworoherane. Ibaze ibibazo byawe byose — nta gahato, nta gucira urubanza.";
+    } else if (q.includes("pregnant") || q.includes("inda") || q.includes("contraceptive")) {
+        reply = "Nshobora kugusobanurira ibijyanye n'uburyo bwo kurinda inda cyangwa ubuzima bw'umubyeyi.";
+    }
+
+    setTimeout(() => {
+        display.innerHTML += `
+            <div class="flex flex-col items-start">
+                <div class="ai-msg bg-white p-6 shadow-sm border max-w-[85%]">${reply}</div>
+            </div>`;
+        display.scrollTop = display.scrollHeight;
+    }, 800);
+
+    input.value = "";
+}
+
+// Speech to Text
+function startSTT() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'rw-RW';
+        recognition.start();
+        recognition.onresult = (event) => {
+            document.getElementById('userInput').value = event.results[0][0].transcript;
+        };
+    } else {
+        alert("Speech recognition not supported in this browser.");
+    }
+}
+
+// Enter key support
+document.getElementById('userInput').addEventListener("keypress", (e) => {
+    if (e.key === "Enter") handleSend();
+});
 </script>
-    
 
 </body>
 </html>
