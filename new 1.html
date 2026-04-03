@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zamuka – Stop Waiting for a Job</title>
+
+<style>
+
+:root {
+  --primary:#0066cc;
+  --green:#28a745;
+  --dark:#1a1a1a;
+  --light:#f8f9fa;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:system-ui,sans-serif;
+  background:var(--light);
+  color:var(--dark);
+  line-height:1.6;
+}
+
+.container{
+  max-width:1180px;
+  margin:auto;
+  padding:0 20px;
+}
+
+header{
+  background:white;
+  border-bottom:1px solid #eee;
+  padding:16px 0;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:1.8rem;
+  font-weight:bold;
+  color:var(--primary);
+}
+
+.menu{
+  display:flex;
+  gap:2rem;
+}
+
+.menu a{
+  text-decoration:none;
+  color:var(--dark);
+}
+
+/* -------- HERO (FIXED) -------- */
+
+.hero{
+  position:relative;
+  width:100%;
+  height:80vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* slideshow */
+
+.hero-slideshow{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+
+.hero-slideshow img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  opacity:0;
+  animation:slideShow 15s infinite;
+}
+
+.hero-slideshow img:nth-child(1){animation-delay:0s;}
+.hero-slideshow img:nth-child(2){animation-delay:5s;}
+.hero-slideshow img:nth-child(3){animation-delay:10s;}
+
+@keyframes slideShow{
+  0%{opacity:0}
+  10%{opacity:1}
+  30%{opacity:1}
+  40%{opacity:0}
+  100%{opacity:0}
+}
+
+/* dark overlay */
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  z-index:1;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  color:white;
+}
+
+.hero h1{
+  font-size:3.1rem;
+  line-height:1.15;
+  margin-bottom:1rem;
+}
+
+.hero h1 span{
+  color:#4da3ff;
+}
+
+.subtitle{
+  font-size:1.4rem;
+  margin-bottom:2rem;
+}
+
+.cta-btn{
+  display:inline-block;
+  background:var(--primary);
+  color:white;
+  padding:16px 40px;
+  border-radius:50px;
+  font-weight:600;
+  text-decoration:none;
+}
+
+/* sections */
+
+.section{
+  padding:90px 0;
+}
+
+h2{
+  text-align:center;
+  font-size:2.6rem;
+  margin-bottom:3rem;
+}
+
+.pillars{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:2rem;
+}
+
+.pillar{
+  background:white;
+  padding:2.5rem;
+  border-radius:16px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.08);
+  text-align:center;
+}
+
+.icon-placeholder{
+  width:90px;
+  height:90px;
+  background:#e9f3ff;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.5rem;
+}
+
+/* stats */
+
+.stats-section{
+  background:#0a1d37;
+  color:white;
+  padding:100px 0;
+  text-align:center;
+}
+
+.dashboard-img{
+  width:100%;
+  max-width:900px;
+  margin:40px auto;
+  display:block;
+  border-radius:12px;
+}
+
+/* footer */
+
+footer{
+  background:var(--dark);
+  color:white;
+  padding:60px 0;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:2rem;
+}
+
+.footer-grid a{
+  display:block;
+  color:#ccc;
+  text-decoration:none;
+  margin-bottom:.6rem;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<div class="nav">
+<div class="logo">ZAMUKA</div>
+
+<nav class="menu">
+<a href="about us.html">About Us</a>
+<a href="Login.html">Log in</a>
+<a href="#">Our Program</a>
+<a href="#">Financial Academy</a>
+<a href="#">Contact</a>
+</nav>
+
+</div>
+</div>
+</header>
+
+
+<section class="hero">
+
+<div class="hero-slideshow">
+<img src="img1.png">
+<img src="img2.png">
+<img src="img3.png">
+</div>
+
+<div class="container hero-content">
+<h1>Stop Waiting for a Job.<br>Build Your Own Future<br>with <span>Zamuka</span></h1>
+<p class="subtitle">Join thousands of youth creating real income and independence</p>
+<a href="signup.html" class="cta-btn">Join Zamuka Today</a>
+</div>
+
+</section>
+
+
+<section class="section">
+<div class="container">
+
+<h2>3 Pillar Process</h2>
+
+<div class="pillars">
+
+<div class="pillar">
+<div class="icon-placeholder">👥</div>
+<h3>Join a Circle</h3>
+<p>Connect with motivated peers and start your journey together</p>
+</div>
+
+<div class="pillar">
+<div class="icon-placeholder">💰</div>
+<h3>Micro-save Daily</h3>
+<p>Build discipline and capital through small, consistent savings</p>
+</div>
+
+<div class="pillar">
+<div class="icon-placeholder">🌱</div>
+<h3>Unlock Seed Capital</h3>
+<p>Access funding to launch your own project</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<section class="stats-section">
+<div class="container">
+
+<h2>Your Progress Dashboard</h2>
+
+<img src="photo 1.png" class="dashboard-img">
+
+</div>
+</section>
+
+
+<footer>
+
+<div class="container">
+
+<div class="footer-grid">
+
+<div>
+<h4>ZAMUKA</h4>
+<p>Your path to financial independence</p>
+</div>
+
+<div>
+<h4>Quick Links</h4>
+<a href="#">How It Works</a>
+<a href="#">Financial Academy</a>
+<a href="#">About Us</a>
+</div>
+
+<div>
+<h4>Contact</h4>
+<p>+250 782 123 456</p>
+<p>contact@zamuka.rw</p>
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer>
+
+botName: "Zamuka AI Mentor"
+
+</script>
+    
+
+</body>
+</html>

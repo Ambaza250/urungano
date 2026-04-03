@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urungano AI - Inclusive Health Support</title>
+    <!-- Modern Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+        .high-contrast { background-color: #000 !important; color: #fff !important; }
+        .high-contrast button { border: 2px solid white !important; background-color: #000 !important; color: #fff !important; }
+        .chat-box { height: 450px; overflow-y: auto; scroll-behavior: smooth; }
+        .ai-msg { border-radius: 20px 20px 20px 0; }
+        .user-msg { border-radius: 20px 20px 0 20px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- NAVIGATION & ACCESSIBILITY BAR -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-blue-600">Urungano AI</h1>
+        <div class="flex gap-3">
+            <button onclick="toggleContrast()" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold" title="High Contrast Mode">Contrast</button>
+            <button onclick="changeFontSize(2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold" title="Increase Font Size">A+</button>
+            <button onclick="changeFontSize(-2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A-</button>
+        </div>
+    </nav>
+
+    <!-- HERO / IMPACT SECTION -->
+    <header class="text-center py-12 px-6">
+        <h2 class="text-4xl font-extrabold mb-4">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
+        <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
+    </header>
+
+    <!-- MAIN CHAT INTERFACE -->
+    <main class="max-w-3xl mx-auto px-6 mb-20">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+            
+            <!-- Chat Header -->
+            <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
+                    <div>
+                        <h3 class="font-bold">Urungano AI Assistant</h3>
+                        <p class="text-xs text-blue-100 italic">Anonymous & Secure</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Display -->
+            <div id="chatDisplay" class="chat-box p-6 bg-slate-50/50 space-y-4">
+                <!-- Initial AI Greeting -->
+                <div class="flex flex-col items-start space-y-2">
+                    <div class="ai-msg bg-white p-4 shadow-sm border border-slate-200 max-w-[85%] text-sm leading-relaxed">
+                        Muraho! Ndi Urungano AI. Nshobora kugufasha ku bibazo bijyanye n'ubuzima bwo mu mutwe cyangwa ubuzima bw'imyororokere. Ufite ikibazo ushaka kubaza?
+                    </div>
+                    <button onclick="readAloud('Muraho! Ndi Urungano AI. Nshobora kugufasha ku bibazo bijyanye nubuzima bwo mu mutwe cyangwa ubuzima bwimyororokere.')" class="text-blue-600 text-xs font-bold pl-2">🔊 Yumva (Listen)</button>
+                </div>
+            </div>
+
+            <!-- Input Controls -->
+            <div class="p-5 bg-white border-t border-slate-100">
+                <div class="flex gap-3">
+                    <input type="text" id="userInput" placeholder="Andika ikibazo hano..." 
+                        class="flex-1 p-4 bg-slate-100 rounded-2xl border-none focus:ring-2 focus:ring-blue-500 outline-none">
+                    
+                    <!-- Speech to Text (STT) -->
+                    <button onclick="startSTT()" id="micBtn" class="bg-slate-100 p-4 rounded-2xl hover:bg-blue-100 transition" title="Speak Kinyarwanda">
+                        🎤
+                    </button>
+
+                    <button onclick="handleSend()" class="bg-blue-600 text-white px-6 py-4 rounded-2xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">
+                        Send
+                    </button>
+                </div>
+                <div class="flex justify-between mt-3 px-2">
+                    <p class="text-[10px] text-slate-400 italic">Emergency? Call 3530 Helpline</p>
+                    <button onclick="alert('Easy-Read Mode: Simplified text & symbols enabled.')" class="text-[10px] text-blue-500 font-bold underline">Easy-Read Mode</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-slate-400 text-xs py-10">
+        <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
+    </footer>
+
+    <script>
+        // --- 1. ACCESSIBILITY CONTROLS ---
+        function toggleContrast() { document.body.classList.toggle('high-contrast'); }
+        let currentSize = 16;
+        function changeFontSize(delta) {
+            currentSize += delta;
+            document.body.style.fontSize = currentSize + 'px';
+        }
+
+        // --- 2. TEXT TO SPEECH (TTS) ---
+        function readAloud(text) {
+            if ('speechSynthesis' in window) {
+                const speech = new SpeechSynthesisUtterance(text);
+                speech.lang = 'rw-RW'; // Kinyarwanda
+                speech.rate = 0.9;
+                window.speechSynthesis.speak(speech);
+            }
+        }
+
+        // --- 3. SPEECH TO TEXT (STT) ---
+        function startSTT() {
+            const mic = document.getElementById('micBtn');
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'rw-RW';
+            
+            mic.classList.add('bg-red-200', 'animate-pulse');
+            recognition.start();
+
+            recognition.onresult = (e) => {
+                document.getElementById('userInput').value = e.results[0][0].transcript;
+                mic.classList.remove('bg-red-200', 'animate-pulse');
+            };
+            recognition.onerror = () => mic.classList.remove('bg-red-200', 'animate-pulse');
+        }
+
+        // --- 4. CHAT ENGINE ---
+        function handleSend() {
+            const input = document.getElementById('userInput');
+            const display = document.getElementById('chatDisplay');
+            if (!input.value.trim()) return;
+
+            // User UI
+            const userMsg = `<div class="flex justify-end"><div class="user-msg bg-blue-600 text-white p-4 shadow-md max-w-[85%] text-sm">${input.value}</div></div>`;
+            display.innerHTML += userMsg;
+
+            // Logic for the panel demo
+            let reply = "Mumbabarire, ntabwo mbashe gusobanukirwa neza ikibazo cyanyu. Mwagerageza kongera kubaza?";
+            const text = input.value.toLowerCase();
+
+            if (text.includes("imihango") || text.includes("menstruation")) {
+                reply = "Imihango ni ibisanzwe mu muryango w'abakobwa. Niba ufite uburibwe budasanzwe, ni byiza kugana kwa muganga.";
+            } else if (text.includes("depression") || text.includes("agahinda") || text.includes("stress")) {
+                reply = "Umuhangayiko cyangwa agahinda gakabije bishobora kuvurwa. Kanda hano uvugane na 3530 uyu munsi.";
+            }
+
+            // AI UI
+            setTimeout(() => {
+                const aiMsg = `
+                    <div class="flex flex-col items-start space-y-2">
+                        <div class="ai-msg bg-white p-4 shadow-sm border border-slate-200 max-w-[85%] text-sm leading-relaxed">${reply}</div>
+                        <button onclick="readAloud('${reply}')" class="text-blue-600 text-xs font-bold pl-2">🔊 Yumva (Listen)</button>
+                    </div>`;
+                display.innerHTML += aiMsg;
+                display.scrollTop = display.scrollHeight;
+                readAloud(reply);
+            }, 800);
+
+            input.value = "";
+        }
+    </script>
+</body>
+</html>
+
+
