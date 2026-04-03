@@ -3,72 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urungano AI</title>
+    <title>Urungano AI - Inclusive Health Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        #chat-container {
-            height: calc(100vh - 120px); /* Adjust if you change header/footer size */
-            width: 100%;
+        body { font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+        .high-contrast { background-color: #000 !important; color: #fff !important; }
+        .high-contrast button { border: 2px solid white !important; background-color: #000 !important; color: #fff !important; }
+        
+        /* Chat container styling to match your original design */
+        .chat-container {
+            height: 520px; /* Same height as your old chat-box */
+            overflow: hidden;
         }
         #botpress-webchat {
             width: 100% !important;
             height: 100% !important;
+            border-radius: 0 !important;
         }
     </style>
 </head>
-<body class="bg-slate-50 flex flex-col">
+<body class="bg-slate-50 text-slate-900">
 
-    <!-- Your header (kept simple) -->
-    <header class="bg-blue-600 text-white px-6 py-5 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-white/30 rounded-2xl flex items-center justify-center text-3xl">U</div>
-            <h1 class="text-2xl font-bold">Urungano AI</h1>
+    <!-- NAVIGATION & ACCESSIBILITY BAR -->
+    <nav class="bg-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-blue-600">Urungano AI</h1>
+        <div class="flex gap-3">
+            <button onclick="toggleContrast()" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold" title="High Contrast Mode">Contrast</button>
+            <button onclick="changeFontSize(2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold" title="Increase Font Size">A+</button>
+            <button onclick="changeFontSize(-2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A-</button>
         </div>
-        <p class="text-sm opacity-90">Anonymous & Secure Support</p>
+    </nav>
+
+    <!-- HERO / IMPACT SECTION -->
+    <header class="text-center py-12 px-6">
+        <h2 class="text-4xl font-extrabold mb-4">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
+        <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
     </header>
 
-    <!-- Botpress Chat Area - This is the main thing now -->
-    <div class="flex-1 p-4" id="chat-container">
-        <div id="botpress-webchat" class="bg-white rounded-3xl shadow-xl overflow-hidden h-full"></div>
-    </div>
+    <!-- MAIN CHAT INTERFACE (Botpress embedded here) -->
+    <main class="max-w-3xl mx-auto px-6 mb-20">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+            
+            <!-- Chat Header (same as your original) -->
+            <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
+                    <div>
+                        <h3 class="font-bold">Urungano AI Assistant</h3>
+                        <p class="text-xs text-blue-100 italic">Anonymous & Secure • Powered by Botpress</p>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Optional small footer -->
-    <footer class="text-center text-xs text-slate-500 py-4">
-        © Urungano AI • Powered by Botpress
+            <!-- Botpress Chat Area -->
+            <div class="chat-container">
+                <div id="botpress-webchat"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-slate-400 text-xs py-10">
+        <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
     </footer>
 
-    <!-- === Botpress Scripts (keep exactly as you provided) === -->
+    <!-- Botpress Scripts -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
     <script>
-        window.addEventListener('load', () => {
+        // Accessibility Controls
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
+        let currentSize = 16;
+        function changeFontSize(delta) {
+            currentSize += delta;
+            document.body.style.fontSize = currentSize + 'px';
+        }
+
+        // Initialize Botpress as embedded chat (fills the container)
+        window.addEventListener('load', function() {
             window.botpressWebChat.init({
                 botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
                 clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
                 
-                // These options make it embedded, not a widget
-                container: "#botpress-webchat",
-                hideWidget: true,
+                container: "#botpress-webchat",   // This makes it appear inside the div
+                hideWidget: true,                 // Removes the floating bubble
                 containerWidth: "100%",
                 layoutWidth: "100%",
-
+                
                 botName: "Urungano AI",
                 showPoweredBy: false,
                 enableTranscriptDownload: true,
-                
-                // Optional: nicer look
-                theme: "prism",
+                theme: "prism",                   // Clean modern look
                 style: {
-                    borderRadius: "12px"
+                    borderRadius: "0px",
+                    boxShadow: "none"
                 }
             });
         });
     </script>
-
 </body>
 </html>
