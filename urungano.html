@@ -19,12 +19,26 @@
             background-color: #000 !important; 
             color: #fff !important; 
         }
-        
-        /* Chat container styling - matches your original card */
-        .chat-container {
-            height: 550px;
+
+        /* Modal styles */
+        #chat-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #chat-modal-content {
+            background: white;
+            width: 100%;
+            max-width: 900px;
+            height: 85vh;
+            border-radius: 20px;
             overflow: hidden;
-            background-color: #f8fafc;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
         }
         #botpress-webchat {
             width: 100% !important;
@@ -38,51 +52,61 @@
     <nav class="bg-white shadow-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-blue-600">Urungano AI</h1>
         <div class="flex gap-3">
-            <button onclick="toggleContrast()" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold" title="High Contrast Mode">Contrast</button>
-            <button onclick="changeFontSize(2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold" title="Increase Font Size">A+</button>
+            <button onclick="toggleContrast()" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">Contrast</button>
+            <button onclick="changeFontSize(2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A+</button>
             <button onclick="changeFontSize(-2)" class="bg-slate-100 px-3 py-1 rounded text-xs font-bold">A-</button>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <header class="text-center py-12 px-6">
         <h2 class="text-4xl font-extrabold mb-4">Ufite Ikibazo? Urungano AI ruragutega amatwi.</h2>
         <p class="text-slate-600 max-w-xl mx-auto">Your safe, anonymous, and inclusive bridge to SRH and Mental Health support in Rwanda.</p>
     </header>
 
-    <!-- MAIN CHAT INTERFACE -->
-    <main class="max-w-3xl mx-auto px-6 mb-20">
-        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
-            
-            <!-- Chat Header (exactly as in your original) -->
-            <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
-                    <div>
-                        <h3 class="font-bold">Urungano AI Assistant</h3>
-                        <p class="text-xs text-blue-100 italic">Anonymous & Secure • Real AI by Botpress</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Real AI Chat Area (Botpress fills this) -->
-            <div class="chat-container">
-                <div id="botpress-webchat"></div>
-            </div>
-        </div>
-    </main>
+    <!-- CENTERED TOGGLE BUTTON -->
+    <div class="max-w-3xl mx-auto px-6 text-center mb-12">
+        <button onclick="toggleChatModal()" 
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-10 py-5 rounded-3xl shadow-xl transition flex items-center gap-3 mx-auto">
+            <span class="text-2xl">💬</span>
+            Vugana na Urungano AI
+        </button>
+        <p class="text-slate-500 text-sm mt-3">Anonymous • Secure • Real AI</p>
+    </div>
 
     <!-- FOOTER -->
     <footer class="text-center text-slate-400 text-xs py-10">
         <p>© 2026 Urungano AI | iAccelerator Phase 7 Prototype</p>
     </footer>
 
-    <!-- Botpress Scripts (your provided embed code) -->
+    <!-- CHAT MODAL -->
+    <div id="chat-modal">
+        <div id="chat-modal-content">
+            <!-- Modal Header -->
+            <div class="bg-blue-600 p-5 text-white flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold text-xl">U</div>
+                    <div>
+                        <h3 class="font-bold">Urungano AI Assistant</h3>
+                        <p class="text-xs text-blue-100">Anonymous & Secure</p>
+                    </div>
+                </div>
+                <button onclick="toggleChatModal()" class="text-3xl leading-none hover:text-blue-200">×</button>
+            </div>
+            
+            <!-- Botpress Chat -->
+            <div style="height: calc(100% - 73px);">
+                <div id="botpress-webchat"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botpress Scripts -->
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/03/07/18/20260307180448-OO3P5CNL.js" defer></script>
 
     <script>
-        // Accessibility Controls (kept from your original file)
+        // Accessibility functions
         function toggleContrast() {
             document.body.classList.toggle('high-contrast');
         }
@@ -92,18 +116,21 @@
             document.body.style.fontSize = currentSize + 'px';
         }
 
-        // Initialize Real Botpress AI inside your design
+        // Toggle Modal
+        function toggleChatModal() {
+            const modal = document.getElementById('chat-modal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // Initialize Botpress in embedded mode (no default widget)
         window.addEventListener('load', function() {
             window.botpressWebChat.init({
                 botId: "d59ff866-fc33-4d42-ad6e-456733cd4c00",
                 clientId: "9cd9be7e-2f2d-477c-a92f-f01aa46d4dab",
-                
-                // Core options for embedded mode (no widget)
                 container: "#botpress-webchat",
-                hideWidget: true,
+                hideWidget: true,           // Hide the default floating bubble
                 containerWidth: "100%",
                 layoutWidth: "100%",
-
                 botName: "Urungano AI",
                 showPoweredBy: false,
                 enableTranscriptDownload: true,
