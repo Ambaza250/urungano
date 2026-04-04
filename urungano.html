@@ -36,18 +36,18 @@
         }
 
         .logo {
-            width: 68px;
-            height: 68px;
+            width: 72px;
+            height: 72px;
             object-fit: cover;
-            border-radius: 16px;   /* Rounded edges */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         }
 
         .chat-logo {
-            width: 56px;
-            height: 56px;
+            width: 58px;
+            height: 58px;
             object-fit: cover;
-            border-radius: 14px;
+            border-radius: 16px;
         }
     </style>
 </head>
@@ -58,12 +58,13 @@
         <div class="banner-overlay"></div>
         
         <!-- Top Navigation -->
-        <nav class="nav-bar flex justify-between items-center px-8 py-6 relative z-50">
+        <nav class="flex justify-between items-center px-8 py-6 relative z-50">
             <!-- Logo on the left -->
             <div>
                 <img src="WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg" 
                      alt="Urungano Logo" 
-                     class="logo">
+                     class="logo"
+                     onerror="this.src=''; this.alt='Logo failed to load - check filename and folder'; this.style.border='2px dashed red';">
             </div>
             
             <!-- Header Buttons - Top Right -->
@@ -103,14 +104,15 @@
             <div class="bg-blue-600 px-8 py-6 text-white flex items-center gap-4">
                 <img src="WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg" 
                      alt="Urungano Logo" 
-                     class="chat-logo">
+                     class="chat-logo"
+                     onerror="this.style.display='none';">
                 <div>
                     <h2 class="text-2xl font-bold">Urungano AI Assistant</h2>
                     <p class="text-blue-100">Anonymous • Secure • Real-time Support</p>
                 </div>
             </div>
 
-            <!-- Udify Chatbot Iframe -->
+            <!-- Udify Chatbot -->
             <div style="height: calc(100% - 85px);">
                 <iframe
                     src="https://udify.app/chat/4c3chgpwFrrgfL4d"
@@ -122,20 +124,11 @@
         </div>
     </div>
 
-    <!-- Floating Accessibility Controls -->
+    <!-- Floating Accessibility -->
     <div class="fixed bottom-8 right-8 bg-white shadow-2xl rounded-3xl p-4 flex gap-3 z-50 border border-slate-100">
-        <button onclick="toggleContrast()" 
-                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">
-            Contrast
-        </button>
-        <button onclick="changeFontSize(2)" 
-                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">
-            A+
-        </button>
-        <button onclick="changeFontSize(-2)" 
-                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">
-            A-
-        </button>
+        <button onclick="toggleContrast()" class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">Contrast</button>
+        <button onclick="changeFontSize(2)" class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">A+</button>
+        <button onclick="changeFontSize(-2)" class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">A-</button>
     </div>
 
     <script>
