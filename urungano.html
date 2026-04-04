@@ -25,7 +25,7 @@
             background-image: url('Fulfill the Promise of the Individuals with Disabilities Education Act _ NEA.jpg');
             background-size: cover;
             background-position: center;
-            height: 520px;           /* Full-size banner */
+            height: 520px;
             position: relative;
             width: 100%;
         }
@@ -35,13 +35,19 @@
             inset: 0;
         }
 
-        .nav-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            padding: 20px 40px;
+        .logo {
+            width: 68px;
+            height: 68px;
+            object-fit: cover;
+            border-radius: 16px;   /* Rounded edges */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-logo {
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            border-radius: 14px;
         }
     </style>
 </head>
@@ -51,10 +57,13 @@
     <div class="banner">
         <div class="banner-overlay"></div>
         
-        <!-- Top Navigation with Buttons -->
-        <nav class="nav-bar flex justify-between items-center">
-            <div class="text-white">
-                <h1 class="text-4xl font-bold tracking-tighter">Urungano</h1>
+        <!-- Top Navigation -->
+        <nav class="nav-bar flex justify-between items-center px-8 py-6 relative z-50">
+            <!-- Logo on the left -->
+            <div>
+                <img src="WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg" 
+                     alt="Urungano Logo" 
+                     class="logo">
             </div>
             
             <!-- Header Buttons - Top Right -->
@@ -74,7 +83,7 @@
             </div>
         </nav>
 
-        <!-- Welcome Text - Centered on Banner -->
+        <!-- Welcome Text -->
         <div class="absolute bottom-16 left-1/2 -translate-x-1/2 text-center text-white px-6 max-w-4xl">
             <h1 class="text-6xl font-bold leading-tight mb-6">
                 Welcome to Urungano Platform
@@ -90,16 +99,18 @@
     <div class="max-w-6xl mx-auto px-6 py-10">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden" style="height: 78vh; min-height: 680px;">
             
-            <!-- Chat Header -->
+            <!-- Chat Header with Logo -->
             <div class="bg-blue-600 px-8 py-6 text-white flex items-center gap-4">
-                <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-4xl font-bold">U</div>
+                <img src="WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg" 
+                     alt="Urungano Logo" 
+                     class="chat-logo">
                 <div>
                     <h2 class="text-2xl font-bold">Urungano AI Assistant</h2>
                     <p class="text-blue-100">Anonymous • Secure • Real-time Support</p>
                 </div>
             </div>
 
-            <!-- Udify Iframe - Main Content -->
+            <!-- Udify Chatbot Iframe -->
             <div style="height: calc(100% - 85px);">
                 <iframe
                     src="https://udify.app/chat/4c3chgpwFrrgfL4d"
@@ -111,8 +122,21 @@
         </div>
     </div>
 
-    <!-- Floating Accessibility Buttons -->
-    
+    <!-- Floating Accessibility Controls -->
+    <div class="fixed bottom-8 right-8 bg-white shadow-2xl rounded-3xl p-4 flex gap-3 z-50 border border-slate-100">
+        <button onclick="toggleContrast()" 
+                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">
+            Contrast
+        </button>
+        <button onclick="changeFontSize(2)" 
+                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">
+            A+
+        </button>
+        <button onclick="changeFontSize(-2)" 
+                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">
+            A-
+        </button>
+    </div>
 
     <script>
         function toggleContrast() {
