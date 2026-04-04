@@ -57,28 +57,23 @@
     <div class="banner">
         <div class="banner-overlay"></div>
         
-        <!-- Top Navigation -->
         <nav class="flex justify-between items-center px-8 py-6 relative z-50">
-            <!-- Logo on the left -->
+            <!-- Logo Top Left -->
             <div>
-                <img src="/WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg" 
+                <img src="urungano-logo.jpeg" 
                      alt="Urungano Logo" 
-                     class="logo"
-                     onerror="this.src=''; this.alt='Logo failed to load - check filename and folder'; this.style.border='2px dashed red';">
+                     class="logo">
             </div>
             
-            <!-- Header Buttons - Top Right -->
+            <!-- Header Buttons -->
             <div class="flex gap-4">
-                <button onclick="window.location.href='#srh'" 
-                        class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
+                <button onclick="window.location.href='#srh'" class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
                     SRH Services
                 </button>
-                <button onclick="window.location.href='#mental'" 
-                        class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
+                <button onclick="window.location.href='#mental'" class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
                     Mental Health Support
                 </button>
-                <button onclick="document.getElementById('search-input').focus()" 
-                        class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl flex items-center gap-2 transition shadow-md">
+                <button onclick="document.getElementById('search-input').focus()" class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl flex items-center gap-2 transition shadow-md">
                     <span>🔍</span> Search
                 </button>
             </div>
@@ -99,20 +94,16 @@
     <!-- Main Chat Section -->
     <div class="max-w-6xl mx-auto px-6 py-10">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden" style="height: 78vh; min-height: 680px;">
-            
-            <!-- Chat Header with Logo -->
             <div class="bg-blue-600 px-8 py-6 text-white flex items-center gap-4">
-                <img src="/WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg" 
+                <img src="urungano-logo.jpeg" 
                      alt="Urungano Logo" 
-                     class="chat-logo"
-                     onerror="this.style.display='none';">
+                     class="chat-logo">
                 <div>
                     <h2 class="text-2xl font-bold">Urungano AI Assistant</h2>
                     <p class="text-blue-100">Anonymous • Secure • Real-time Support</p>
                 </div>
             </div>
 
-            <!-- Udify Chatbot -->
             <div style="height: calc(100% - 85px);">
                 <iframe
                     src="https://udify.app/chat/4c3chgpwFrrgfL4d"
@@ -132,9 +123,7 @@
     </div>
 
     <script>
-        function toggleContrast() {
-            document.body.classList.toggle('high-contrast');
-        }
+        function toggleContrast() { document.body.classList.toggle('high-contrast'); }
         let currentSize = 16;
         function changeFontSize(delta) {
             currentSize += delta;
