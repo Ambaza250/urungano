@@ -6,19 +6,30 @@
     <title>Urungano Platform - Inclusive Support</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .high-contrast { background-color: #000 !important; color: #fff !important; }
-        .high-contrast button { border: 2px solid white !important; background-color: #000 !important; color: #fff !important; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+            padding: 0;
+        }
+        .high-contrast { 
+            background-color: #000 !important; 
+            color: #fff !important; 
+        }
+        .high-contrast button { 
+            border: 2px solid white !important; 
+            background-color: #000 !important; 
+            color: #fff !important; 
+        }
 
         .banner {
-            background-image: url('https://www.nea.org/sites/default/files/2025-06/idea-funding-gaps.jpg'); /* NEA IDEA image */
+            background-image: url('Fulfill the Promise of the Individuals with Disabilities Education Act _ NEA.jpg');
             background-size: cover;
             background-position: center;
             height: 420px;
             position: relative;
         }
         .banner-overlay {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.55));
             position: absolute;
             inset: 0;
         }
@@ -26,40 +37,47 @@
 </head>
 <body class="bg-slate-50">
 
-    <!-- Top Banner -->
-    <div class="banner">
-        <div class="banner-overlay flex items-center">
-            <div class="max-w-6xl mx-auto px-6 text-white w-full">
-                <div class="flex justify-end gap-3 mb-8">
-                    <button onclick="window.location.href='#srh'" 
-                            class="bg-white/90 hover:bg-white text-slate-900 font-medium px-6 py-2.5 rounded-full transition">
-                        SRH Services
-                    </button>
-                    <button onclick="window.location.href='#mental'" 
-                            class="bg-white/90 hover:bg-white text-slate-900 font-medium px-6 py-2.5 rounded-full transition">
-                        Mental Health Support
-                    </button>
-                    <button onclick="document.getElementById('search-input').focus()" 
-                            class="bg-white/90 hover:bg-white text-slate-900 font-medium px-6 py-2.5 rounded-full flex items-center gap-2 transition">
-                        <span>🔍</span> Search
-                    </button>
-                </div>
-
-                <div class="max-w-2xl">
-                    <h1 class="text-5xl font-bold leading-tight mb-4">
-                        Welcome to Urungano Platform
-                    </h1>
-                    <p class="text-xl text-white/90">
-                        Your inclusive, Kinyarwanda-native home for stigma-free support<br>
-                        in Sexual and Reproductive Health (SRH) and Mental Health.
-                    </p>
-                </div>
+    <!-- Top Banner with Header Buttons -->
+    <div class="banner relative">
+        <div class="banner-overlay"></div>
+        
+        <!-- Top Navigation Bar -->
+        <nav class="relative z-50 px-8 py-5 flex justify-between items-center">
+            <div class="text-white">
+                <h1 class="text-3xl font-bold tracking-tight">Urungano</h1>
             </div>
+            
+            <!-- Buttons in top right corner -->
+            <div class="flex gap-3">
+                <button onclick="window.location.href='#srh'" 
+                        class="bg-white/90 hover:bg-white text-slate-900 font-medium px-6 py-2.5 rounded-full transition shadow">
+                    SRH Services
+                </button>
+                <button onclick="window.location.href='#mental'" 
+                        class="bg-white/90 hover:bg-white text-slate-900 font-medium px-6 py-2.5 rounded-full transition shadow">
+                    Mental Health Support
+                </button>
+                <button onclick="document.getElementById('search-input').focus()" 
+                        class="bg-white/90 hover:bg-white text-slate-900 font-medium px-6 py-2.5 rounded-full flex items-center gap-2 transition shadow">
+                    <span>🔍</span> Search
+                </button>
+            </div>
+        </nav>
+
+        <!-- Welcome Text -->
+        <div class="relative z-40 max-w-4xl mx-auto px-8 pt-20 text-white">
+            <h1 class="text-5xl font-bold leading-tight mb-4">
+                Welcome to Urungano Platform
+            </h1>
+            <p class="text-xl text-white/95 max-w-2xl">
+                Your inclusive, Kinyarwanda-native home for stigma-free support<br>
+                in Sexual and Reproductive Health (SRH) and Mental Health.
+            </p>
         </div>
     </div>
 
     <!-- Main Chat Section (Udify Iframe) -->
-    <div class="max-w-6xl mx-auto px-6 py-8">
+    <div class="max-w-6xl mx-auto px-6 -mt-8 relative z-10">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden" style="height: 82vh; min-height: 680px;">
             
             <!-- Chat Header -->
@@ -71,7 +89,7 @@
                 </div>
             </div>
 
-            <!-- Udify Chatbot Iframe -->
+            <!-- Udify Chatbot -->
             <div style="height: calc(100% - 77px);">
                 <iframe
                     src="https://udify.app/chat/4c3chgpwFrrgfL4d"
@@ -83,24 +101,23 @@
         </div>
     </div>
 
-    <!-- Accessibility Controls (Floating) -->
-    <div class="fixed bottom-6 right-6 bg-white shadow-lg rounded-2xl p-3 flex gap-2 z-50">
+    <!-- Floating Accessibility Controls -->
+    <div class="fixed bottom-6 right-6 bg-white shadow-xl rounded-2xl p-3 flex gap-2 z-50 border border-slate-100">
         <button onclick="toggleContrast()" 
-                class="bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-medium transition">
+                class="bg-slate-100 hover:bg-slate-200 px-5 py-2.5 rounded-xl text-sm font-medium transition">
             Contrast
         </button>
         <button onclick="changeFontSize(2)" 
-                class="bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-medium transition">
+                class="bg-slate-100 hover:bg-slate-200 px-5 py-2.5 rounded-xl text-sm font-medium transition">
             A+
         </button>
         <button onclick="changeFontSize(-2)" 
-                class="bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl text-sm font-medium transition">
+                class="bg-slate-100 hover:bg-slate-200 px-5 py-2.5 rounded-xl text-sm font-medium transition">
             A-
         </button>
     </div>
 
     <script>
-        // Accessibility
         function toggleContrast() {
             document.body.classList.toggle('high-contrast');
         }
