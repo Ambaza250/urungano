@@ -21,6 +21,7 @@
             color: #fff !important; 
         }
 
+        /* Banner */
         .banner {
             background-image: url('Fulfill the Promise of the Individuals with Disabilities Education Act _ NEA.jpg');
             background-size: cover;
@@ -35,10 +36,13 @@
             inset: 0;
         }
 
-        .logo {
+        /* Logo as CSS Background - Consistent with Banner */
+        .urungano-logo {
             width: 72px;
             height: 72px;
-            object-fit: cover;
+            background-image: url('WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg');
+            background-size: cover;
+            background-position: center;
             border-radius: 18px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
         }
@@ -46,7 +50,9 @@
         .chat-logo {
             width: 58px;
             height: 58px;
-            object-fit: cover;
+            background-image: url('WhatsApp Image 2026-04-03 at 1.45.18 PM.jpeg');
+            background-size: cover;
+            background-position: center;
             border-radius: 16px;
         }
     </style>
@@ -57,23 +63,23 @@
     <div class="banner">
         <div class="banner-overlay"></div>
         
+        <!-- Top Navigation -->
         <nav class="flex justify-between items-center px-8 py-6 relative z-50">
             <!-- Logo Top Left -->
-            <div>
-                <img src="https://github.com/Ambaza250/urungano/blob/main/urungano-logo.jpeg" 
-                     alt="Urungano Logo" 
-                     class="logo">
-            </div>
+            <div class="urungano-logo"></div>
             
-            <!-- Header Buttons -->
+            <!-- Header Buttons - Top Right -->
             <div class="flex gap-4">
-                <button onclick="window.location.href='#srh'" class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
+                <button onclick="window.location.href='#srh'" 
+                        class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
                     SRH Services
                 </button>
-                <button onclick="window.location.href='#mental'" class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
+                <button onclick="window.location.href='#mental'" 
+                        class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl transition shadow-md">
                     Mental Health Support
                 </button>
-                <button onclick="document.getElementById('search-input').focus()" class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl flex items-center gap-2 transition shadow-md">
+                <button onclick="document.getElementById('search-input').focus()" 
+                        class="bg-white/95 hover:bg-white text-slate-900 font-semibold px-7 py-3 rounded-2xl flex items-center gap-2 transition shadow-md">
                     <span>🔍</span> Search
                 </button>
             </div>
@@ -94,16 +100,17 @@
     <!-- Main Chat Section -->
     <div class="max-w-6xl mx-auto px-6 py-10">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden" style="height: 78vh; min-height: 680px;">
+            
+            <!-- Chat Header with Logo -->
             <div class="bg-blue-600 px-8 py-6 text-white flex items-center gap-4">
-                <img src="https://github.com/Ambaza250/urungano/blob/main/urungano-logo.jpeg" 
-                     alt="Urungano Logo" 
-                     class="chat-logo">
+                <div class="chat-logo"></div>
                 <div>
                     <h2 class="text-2xl font-bold">Urungano AI Assistant</h2>
                     <p class="text-blue-100">Anonymous • Secure • Real-time Support</p>
                 </div>
             </div>
 
+            <!-- Udify Chatbot -->
             <div style="height: calc(100% - 85px);">
                 <iframe
                     src="https://udify.app/chat/4c3chgpwFrrgfL4d"
@@ -115,15 +122,20 @@
         </div>
     </div>
 
-    <!-- Floating Accessibility -->
+    <!-- Floating Accessibility Controls -->
     <div class="fixed bottom-8 right-8 bg-white shadow-2xl rounded-3xl p-4 flex gap-3 z-50 border border-slate-100">
-        <button onclick="toggleContrast()" class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">Contrast</button>
-        <button onclick="changeFontSize(2)" class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">A+</button>
-        <button onclick="changeFontSize(-2)" class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">A-</button>
+        <button onclick="toggleContrast()" 
+                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">Contrast</button>
+        <button onclick="changeFontSize(2)" 
+                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">A+</button>
+        <button onclick="changeFontSize(-2)" 
+                class="bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded-2xl text-sm font-medium transition">A-</button>
     </div>
 
     <script>
-        function toggleContrast() { document.body.classList.toggle('high-contrast'); }
+        function toggleContrast() {
+            document.body.classList.toggle('high-contrast');
+        }
         let currentSize = 16;
         function changeFontSize(delta) {
             currentSize += delta;
